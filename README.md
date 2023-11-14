@@ -231,6 +231,6 @@ You can follow the same procedure as above to generate the `jar` file and then j
 
 Instead you can supply various credentials to connect to the database when you run the application locally either using the `docker run` command or `docker compose`.
 
-## Exercises
+## Exercise
 
 Investigate using the Docker Hub for sharing your Docker Images, and how to pass connection credentials into your image when you run it, so that you don't expose them to other people accidentally.
