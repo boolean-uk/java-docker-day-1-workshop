@@ -207,4 +207,30 @@ The `WORKDIR` line tells Docker that when we start running the application it sh
 
 The `COPY` command copies the `jar` file from the current directory into the `app` directory in the container that we created in the last step.
 
-`EXPOSE` tells Docker that we want t
+`EXPOSE` tells Docker that we want to expose Port 4000 to listen on (when we run the container we'll need to map this to a Port on the container).
+
+The `ENTRYPOINT` line builds the command that will run the application when the container is run.
+
+Once we have the `Dockerfile` ready to go we need to build our image from it, we can do this by using:
+
+```bash
+docker build -t my-spring-app .
+```
+
+Which will build a new image. Notice the `.` at the end, that tells docker to use the local directory when it runs the build command. Once this completes, you should be able to run your application by doing:
+
+```bash
+docker run -dp 4000:4000 --name my-spring-app my-spring-app:latest
+```
+
+This detaches the process, tags it with the name and maps port 4000 internally in the application to port 4000 externally. You shoudl then be able to connect to the application using the browser or Insomnia and Port 4000 on the local machine.
+
+## Connecting to an ElephantSQL Database
+
+You can follow the same procedure as above to generate the `jar` file and then just create a new Docker Image and run it. It will seamlessly connect to the remote database using the credentials you supplied in the `application.yml` file. If you share this onto Docker Hub then other people will be able to run your image and connect to your database using it, and the credentials are also stored in plain text inside the `jar` file. Do not do this it is a very bad idea!!!!
+
+Instead you can supply various credentials to connect to the database when you run the application locally either using the `docker run` command or `docker compose`.
+
+## Exercises
+
+Investigate using the Docker Hub for sharing your Docker Images, and how to pass connection credentials into your image when you run it, so that you don't expose them to other people accidentally.
